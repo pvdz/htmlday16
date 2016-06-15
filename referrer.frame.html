@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+	<head>
+		<title>referrer frame test</title>
+		<meta charset="utf-8">
+		<style>
+			body { overflow-wrap: break-word; }
+		</style>
+	</head>
+	<body>
+		<script>
+			var loc = location.href;
+			if (loc.indexOf('https') >= 0) document.body.style.backgroundColor = 'lightgreen';
+			else if (loc.indexOf('8000') > 0) document.body.style.backgroundColor = 'yellow';
+			else if (loc.indexOf('localhost') > 0) document.body.style.backgroundColor = 'pink';
+			else document.body.style.backgroundColor = '#bada55';
+			var ref = document.referrer;
+			document.write('ref: ' + ref);
+			if (!ref) document.body.style.backgroundColor = 'tomato';
+			else if (ref.indexOf('html') < 0) document.body.style.backgroundColor = 'orange';
+		</script>
+	</body>
+</html>
