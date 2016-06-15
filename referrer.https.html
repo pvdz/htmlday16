@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+	<head>
+		<title>referrer test</title>
+		<meta charset="utf-8">
+		<style>
+			html, body { background-color: white; }
+	
+			iframe { background-color: grey; margin: 0; padding: 0; border: 1px solid black; width: 100px; height: 100px; }
+			div { float: left; font-family: Arial; size: 20px; width: 100px; height: 200px; margin: 5px; padding: 5px; overflow: auto; border: 1px solid blue; overflow-wrap: break-word; }
+		</style>
+	</head>
+	<body>
+		<p style="clear:both">
+			From https:<br>
+			0=https<br>
+			1= http://localhost/referrer.frame.html<br> 
+			3= https://dl.dropboxusercontent.com/u/5060151/frame.html
+		</p>
+		<script>
+			var names = [
+				'referrerpolicy',
+//				'referrer',
+//				'referrer-policy',
+			];
+			var values = [
+				undefined, // omit
+				null, // no =
+				'',
+				'no-referrer',
+				'no-referrer-when-downgrade',
+				'same-origin',
+				'origin',
+				'origin-when-cross-origin',
+				'unsafe-url',
+				
+				'never',
+				'default',
+				'always',
+
+				'crap',
+			];
+			var hrefs = [
+				'referrer.frame.html',
+				'http://localhost:8000/referrer.frame.html',
+				'http://qfox.nl/frame.html',
+				'https://dl.dropboxusercontent.com/u/5060151/frame.html',
+			];
+			hrefs.forEach(function(href, i){
+				names.forEach(function(name){
+					values.forEach(function(ref, j){
+						var n = (ref === undefined ? '' : name + (ref === null ? '' : '="' + ref + '"'));
+						var iframe = '<p><iframe src="'+href+'?'+i+'_'+j+'" '+n+'></iframe>';
+						console.log(iframe);
+						document.write('<div><u><b>'+i+'_'+j+': '+n.replace(/=/g,'= ')+'<br></b></u><hr>'+iframe+'</div>');
+					});
+					document.write('<br style="clear:both">');
+				});
+			});
+		</script>
+	</body>
+</html>
