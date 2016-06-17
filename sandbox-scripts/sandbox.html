@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+	<head>
+		<title>sandbox test</title>
+		<meta charset=“utf-8”>
+		<style>
+			html, body { background-color: white; }
+	
+			iframe { background-color: tomato; margin: 0; padding: 0; border: 1px solid black; width: 200px; height: 300px; }
+			div { float: left; font-family: Arial; size: 20px; width: 230px; height: 350px; margin: 5px; padding: 5px; overflow: auto; border: 1px solid blue; }
+		</style>
+	</head>
+	<body>
+		<script>
+			var values = [ // width
+				undefined, // omit
+				null, // no =
+				'allow-scripts',
+/*
+				
+				'allow-forms',
+				'allow-modals',
+				'allow-orientation-lock',
+				'allow-pointer-lock',
+				'allow-popups',
+				'allow-popups-to-escape-sandbox',
+				'allow-same-origin',
+				'allow-top-navigation',
+
+				'sandbox',
+				'1', '0',
+				'true', 'false',
+*/
+			];
+			values.forEach(function(sandbox, i){
+				var n = (sandbox === undefined ? '' : 'sandbox' + (sandbox === null ? '' : '="' + sandbox + '"'));
+				var iframe = '<p><iframe src="sandbox.frame.html?'+i+'" '+n+'></iframe>';
+				console.log(i, iframe);
+				document.write('<div><u><b>'+n+'<br></b></u><hr>'+iframe+'</div>');
+				console.log('-> prop:', document.querySelectorAll('iframe')[document.querySelectorAll('iframe').length-1].sandbox);
+				console.log('-> attr:', document.querySelectorAll('iframe')[document.querySelectorAll('iframe').length-1].getAttribute('sandbox'));
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+	<head>
+		<title>sandbox referrer test</title>
+		<meta charset="utf-8">
+		<style>
+			html, body { background-color: white; }
+	
+			iframe { float: left; margin: 0; padding: 0; border: 1px solid black; width: 50px; height: 50px; }
+			div { float: left; font-family: Arial; size: 20px; width: 250px; overflow:auto; margin: 5px; padding: 5px; overflow: auto; border: 1px solid blue; }
+		</style>
+	</head>
+	<body>
+		<p>Check whether sandbox=allow-same-origin enables passing on the full referrer with referrerpolicy="origin-when-cross-origin"</p>
+		<script>
+			var values = [
+				'',
+				'sandbox="allow-scripts"',
+				'sandbox="allow-same-origin allow-scripts"',
+			];
+			var refs = [
+				'',
+				'referrerpolicy',
+				'referrerpolicy="no-referrer"',
+				'referrerpolicy="origin-when-cross-origin"',
+			];
+			var hrefs = [
+				'referrer.frame.html',
+				'http://localhost:8000/referrer.frame.html',
+				'http://qfox.nl/frame.html', // this may disappear at some point, but it's the same file as referrer.frame.html
+			];
+			hrefs.forEach(function(href){
+				document.write('<p>'+href+'</p>');
+				values.forEach(function(n, i){
+					refs.forEach(function(r, j){
+						var iframe = '<iframe src="'+href+'?'+i+j+'" '+n+' '+r+'></iframe>';
+						console.log(i, iframe);
+						document.write('<div>'+iframe+'<u> '+i+j+': <b>'+n.replace(/=/g,'= ')+'<br>'+r.replace(/=/g,'= ')+'<br></b></u></div>');
+						console.log('-> prop:', document.querySelectorAll('iframe')[document.querySelectorAll('iframe').length-1].sandbox);
+						console.log('-> attr:', document.querySelectorAll('iframe')[document.querySelectorAll('iframe').length-1].getAttribute('sandbox'));
+					});
+					document.write('<br style=clear:both>');
+				});
+			});
+		</script>
+	</body>
+</html>

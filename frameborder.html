@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+	<head>
+		<title>align</title>
+		<meta charset=“utf-8”>
+		<style>
+			iframe { width: 50px; height: 50px; }
+			p { float: left; font-family: Arial; size: 20px; width: 200px; height: 100px; margin: 5px; padding: 5px; overflow: auto; border: 1px solid red; }
+		</style>
+	</head>
+	<body>
+		<script>
+			[
+				undefined, 
+				null,
+				'', 
+				'0', '1',
+				'true', 'false', 'yes', 'no', 'on', 'off',
+				'border',
+			].forEach(function(b){
+				[
+					undefined, 
+					null,
+					'', 
+					'0', '1',
+					'frameborder',
+				].forEach(function(fb){
+					var a = (b===undefined?'':b===null?'border':'border="'+b+'"')+' '+(fb===undefined?'':fb===null?'frameborder':'frameborder="'+fb+'"');
+					console.log(a);
+					document.write('<p><iframe '+a+'></iframe><u><b>'+a+'</b></u></p>');
+				});
+				document.write('<br style="clear:both;">');
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+	<head>
+		<title>src javascript test</title>
+		<meta charset="utf-8">
+		<style>
+			iframe { width: 50px; height: 50px; }
+		</style>
+	</head>
+	<body>
+<iframe src="javascript:'5'"></iframe>
+<iframe src="javascript:5"></iframe>
+<iframe src="javascript:5+5"></iframe>
+<iframe src="javascript:5,'5'"></iframe>
+<iframe src="javascript:x=5+5,String(x)"></iframe>
+<iframe src="javascript:if(true)'x';else 'y';"></iframe>
+<iframe src="javascript:if(true)'x';else 'y';5+5;"></iframe>
+<iframe src="javascript:for(var i=0;i<10;++i)'stuff';"></iframe>
+<iframe src="javascript:x=5+5,'<script>document.write(x)</script>'"></iframe>
+<script>document.write('typeof x = ' + typeof x)</script>
+	</body>
+</html>

@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+	<head>
+		<title>src javascript test</title>
+		<meta charset="utf-8">
+		<style>
+			iframe { width: 50px; height: 50px; }
+		</style>
+	</head>
+	<body>
+		<iframe src="javascript:document.write('<body><div>foo</div>'),document.querySelector('div').innerHTML"></iframe>
+		<iframe src="javascript:document.write(&quot;<body><div>foo</div>&quot;),document.querySelector(&quot;div&quot;).innerHTML"></iframe>
+		<iframe src="javascript:x=10;x+'';"></iframe>
+		<iframe src="javascript:x=10;'<script>document.write(x);</script>'"></iframe>
+		<iframe src="javascript:this.x=10;'<script>document.write(x);</script>'"></iframe>
+		<iframe src="javascript:document.x=10;document.x + '<script>document.write(document.x);</script>'"></iframe>
+		<iframe src="javascript:document.write('foo')"></iframe>
+		<iframe src="javascript:document.write('foo'),document.close(),'bar'"></iframe>
+
+		<script>function foo(){ return 'PASS'; }</script>
+		<iframe src="javascript:foo();"></iframe>
+		<iframe src="javascript:parent.foo();"></iframe>
+	</body>
+</html>

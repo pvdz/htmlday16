@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+	<head>
+		<title>src javascript test</title>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<iframe id=A src="data:text/html,<body><script>console.log('from-src');document.body.innerHTML += '[from-src]';</script>"></iframe>
+		<script>
+			console.log('A', A.contentDocument.body);
+			A.contentDocument.body.innerHTML += '[from-parent]'; 
+		</script>
+
+		<iframe src="data:text/html,foo"></iframe>
+
+<iframe id=B src='data:text/html;charset=utf-8,<!DOCTYPE html><html><head></head><body><h1>FAIL</h1></body></html>'></iframe>​
+<script>
+	console.log('B', B.src, B.contentDocument.body.innerHTML);
+	B.contentDocument.querySelector('h1').innerHTML = 'PASS';
+			console.log('B', B.contentDocument, B.contentDocument.querySelector('h1'), B.src, [B.contentDocument.body.innerHTML]);
+		</script>
+	
+		<iframe id=C src='data:text/html,<!DOCTYPE html><html><head></head><body><h1>FAIL</h1></body></html>'></iframe>​
+		<script>
+			console.log('C', C.contentDocument, C.contentDocument.querySelector('h1'));
+			C.contentDocument.querySelector('h1').innerHTML = 'PASS';
+		</script>
+	
+		<iframe id=D src='data:text/html,<body>FAIL</body>'></iframe>​
+		<script>
+			console.log('D', D.contentDocument.body);
+			D.contentDocument.body.innerHTML = 'PASS';
+		</script>
+
+		<iframe id=E src='data:text/html,<body>FAIL</body>'></iframe>​
+		<script>
+			E.contentDocument.body.innerHTML = 'PASS';
+		</script>
+
+		<iframe style="width: 500px; height: 500px;" id=F src="data:text/html;charset=utf-8,<!DOCTYPE html><html><head></head><body>FAIL_f<iframe id=X src=&quot;data:text/html;charset=utf-8,<!DOCTYPE html><html><head></head><body>FAIL_x</body></html>&quot;></iframe>​<script>console.log(2, X.contentDocument.body),X.contentDocument.body.innerHTML = 'PASS_x';</script></body></html>"></iframe>​<script>console.log(1, F.contentDocument.body),F.contentDocument.body.innerHTML = 'PASS_f';</script>
+
+		<!-- check cross domain after data uri resolves -->
+		<iframe id=G src="data:text/html,<body>FAIL_g</body>"></iframe>
+		<script>
+			setTimeout(function(){
+				console.log('G', G.contentDocument.body);
+				G.contentDocument.body.innerHTML += 'PASS_g'; 
+			}, 10);
+		</script>
+
+		<!-- are two data uris cross domain to one another? -->
+		<iframe style="width: 500px; height: 500px;" id=H src="data:text/html;charset=utf-8,<!DOCTYPE html><html><head></head><body>FAIL_f<iframe id=Y src=&quot;data:text/html;charset=utf-8,<!DOCTYPE html><html><head></head><body>FAIL_y</body></html>&quot;></iframe>​<script>setTimeout(function(){ console.log(2, Y.contentDocument.body),Y.contentDocument.body.innerHTML = 'PASS_y'; }, 10);</script></body></html>"></iframe>​<script>console.log(1, H.contentDocument.body),H.contentDocument.body.innerHTML = 'PASS_h';</script>
+
+
+	</body>
+</html>

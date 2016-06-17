@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+	<head>
+		<title>width height</title>
+		<meta charset=“utf-8”>
+		<style>
+			iframe { background-color: red; }
+			p { float: left; font-family: Arial; size: 20px; width: 150px; height: 150px; margin: 5px; padding: 5px; overflow: auto; border: 1px solid red; }
+		</style>
+	</head>
+	<body>
+		<script>
+			[ // width
+				undefined, // omit
+				null, // no =
+				'0', '1', '20', 
+				'50%', '20px', '20em',
+				'width',
+			].forEach(function(x){
+				var w = (x === undefined ? '' : 'width' + (x === null ? '' : '="' + x + '"'));
+				[ // height
+					undefined, // omit
+					null, // no =
+					'0', '1', '20', 
+					'50%', '20px', '20em',
+					'height',
+				].forEach(function(y){
+					var h = (y === undefined ? '' : 'height' + (y === null ? '' : '="' + y + '"'));
+					console.log('<p><iframe '+w+' '+h+'></iframe>');
+					document.write('<p><u><b>'+w+'<br>'+h+'<br></b></u><iframe '+w+' '+h+'></iframe></p>');
+				});
+				document.write('<br style="clear:both;">');
+			});
+		</script>
+	</body>
+</html>

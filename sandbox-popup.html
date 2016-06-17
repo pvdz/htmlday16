@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+	<head>
+		<title>sandbox popups test</title>
+		<meta charset="utf-8">
+		<style>
+			html, body { background-color: white; }
+			div { float: left; width: 20px; height: 20px; border: 1px solid black; }
+	
+			iframe { background-color: tomato; margin: 0; padding: 0; border: 1px solid black; width: 200px; height: 300px; }
+			div { float: left; font-family: Arial; size: 20px; width: 200px; height: 350px; margin: 5px; padding: 5px; overflow: auto; border: 1px solid blue; }
+		</style>
+	</head>
+	<body>
+		<h1>1x top</h1>
+		<script>
+			var values = [ // width
+				undefined, // omit
+				null, // no =
+				'allow-popups', 'foo', '',
+				'allow-popups-to-escape-sandbox',
+				'allow-top-navigation',
+				'allow-forms',
+			];
+			var allowed = [ // width
+				'',
+				'allow-popups',
+				'allow-forms',
+				'allow-popups allow-forms',
+
+			];
+			allowed.forEach(function(allowed){
+				values.forEach(function(name){
+					var n = (name === undefined ? '' : 'sandbox' + (name === null ? '' : '="' + allowed +' '+name + '"'));
+					var iframe = '<p><iframe src=sandbox.frame.html '+n+'></iframe>';
+					console.log(iframe);
+					document.write('<div><u><b>'+n+'<br></b></u><hr>'+iframe+'</div>');
+				});
+				document.write('<br style="clear:both">');
+			});
+		</script>
+	</body>
+</html>

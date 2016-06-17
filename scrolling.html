@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+	<head>
+		<title>scrolling test</title>
+		<meta charset=“utf-8”>
+		<style>
+			html, body { background-color: white; }
+			div { float: left; width: 20px; height: 20px; border: 1px solid black; }
+	
+			iframe { background-color: blue; margin: 0; padding: 0; border: 1px solid black; width: 100px; height: 100px; }
+			div { float: left; font-family: Arial; size: 20px; width: 150px; height: 170px; margin: 5px; padding: 5px; overflow: auto; border: 1px solid blue; }
+		</style>
+	</head>
+	<body>
+		<script>
+			var values = [ // width
+				undefined, // omit
+				null, // no =
+				'',
+				'yes', 'no', 'auto',
+				'scrolling', 'yes-x',
+			];
+			var srcs = ['scrolling.frame.small.html', 'scrolling.frame.large.html', 'scrolling.frame.large.css-auto.html', 'scrolling.frame.large.css-hidden.html'];
+			srcs.forEach(function(src){
+				document.write('<p style="margin:0; padding: 0;">'+src+'</p>');
+				values.forEach(function(scrolling){
+					var n = (scrolling === undefined ? '' : 'scrolling' + (scrolling === null ? '' : '="' + scrolling + '"'));
+					var iframe = '<p><iframe '+n+' src="'+src+'"></iframe>';
+					console.log(iframe);
+					document.write('<div><u><b>'+n+'<br></b></u><hr>'+iframe+'</div>');
+				});
+				document.write('<br style="clear:both">');
+			});
+		</script>
+	</body>
+</html>
