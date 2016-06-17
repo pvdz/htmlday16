@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+	<head>
+		<title>src empty test</title>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<iframe id=A></iframe>
+		<script>
+			console.log('A:', A.src);
+			if (A && A.contentDocument && A.contentDocument.body) A.contentDocument.body.innerHTML = 'PASS body'; 
+			if (A && A.contentDocument && A.contentDocument.head) A.contentDocument.head.innerHTML = 'PASS head'; 
+		</script>
+
+		<iframe id=B src></iframe>
+		<script>
+			console.log('B:', B.src);
+			if (B && B.contentDocument && B.contentDocument.body) B.contentDocument.body.innerHTML = 'PASS body'; 
+			if (B && B.contentDocument && B.contentDocument.head) B.contentDocument.head.innerHTML = 'PASS head'; 
+		</script>
+
+		<iframe id=C src=""></iframe>
+		<script>
+			console.log('C:', C.src);
+			if (C && C.contentDocument && C.contentDocument.body) C.contentDocument.body.innerHTML = 'PASS body'; 
+			if (C && C.contentDocument && C.contentDocument.head) C.contentDocument.head.innerHTML = 'PASS head'; 
+		</script>
+
+		<iframe id=D></iframe>
+		<iframe id=E src></iframe>
+		<iframe id=F src=""></iframe>
+		<script>
+			setTimeout(function() {
+				console.log('D:', D.src);
+				console.log('E:', E.src);
+				console.log('F:', F.src);
+				if (D && D.contentDocument && D.contentDocument.body) D.contentDocument.body.innerHTML = 'PASS body'; 
+				if (D && D.contentDocument && D.contentDocument.head) D.contentDocument.head.innerHTML = 'PASS head'; 
+				if (E && E.contentDocument && E.contentDocument.body) E.contentDocument.body.innerHTML = 'PASS body'; 
+				if (E && E.contentDocument && E.contentDocument.head) E.contentDocument.head.innerHTML = 'PASS head'; 
+				if (F && F.contentDocument && F.contentDocument.body) F.contentDocument.body.innerHTML = 'PASS body'; 
+				if (F && F.contentDocument && F.contentDocument.head) F.contentDocument.head.innerHTML = 'PASS head'; 
+			}, 10);
+		</script>
+
+		<iframe id=G></iframe>
+		<script>
+			console.log('G:', G.src);
+			G.contentDocument.write('PASS docwrite dirty');
+		</script>
+
+		<iframe id=H></iframe>
+		<script>
+			console.log('H:', H.src);
+			H.contentDocument.close();
+			H.contentDocument.open();
+			H.contentDocument.write('PASS docwrite clean');
+		</script>
+	</body>
+</html>

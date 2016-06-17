@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+	<head>
+		<title>marginwidth marginheight</title>
+		<meta charset=“utf-8”>
+		<style>
+			iframe { background-color: red; }
+			p { float: left; font-family: Arial; size: 20px; width: 150px; height: 150px; margin: 5px; padding: 5px; overflow: auto; border: 1px solid red; }
+		</style>
+	</head>
+	<body>
+		<script>
+			var values = [ // width
+				undefined, // omit
+				null, // no =
+				'0', '1', '20', 
+				'50%', '20px', '20em',
+				'width', 'marginwidth',
+				'null', // https://lists.w3.org/Archives/Public/public-html/2011Jun/0337.html
+			];
+			values.forEach(function(x){
+				var w = (x === undefined ? '' : 'marginwidth' + (x === null ? '' : '="' + x + '"'));
+				[ // height
+					undefined, // omit
+					null, // no =
+					'0', '1', '20', 
+					'50%', '20px', '20em',
+					'height', 'marginheight',
+					'null', // https://lists.w3.org/Archives/Public/public-html/2011Jun/0337.html
+				].forEach(function(y){
+					var h = (y === undefined ? '' : 'marginheight' + (y === null ? '' : '="' + y + '"'));
+					var iframe = '<p><iframe '+w+' '+h+'></iframe>';
+					console.log(iframe);
+					document.write('<p><u><b>'+w+'<br>'+h+'<br></b></u>'+iframe+'</p>');
+				});
+				document.write('<br style="clear:both;">');
+			});
+			var iframes = document.querySelectorAll('iframe');
+			console.log(iframes);
+			console.log([].map.call(iframes, function(iframe, i) { return values[Math.floor(i / values.length)] + ' ' + values[i % values.length] + ' -> ' + iframe.marginWidth + ' ' + iframe.marginHeight + ' -> ' + iframe.getAttribute('marginwidth') + ' ' + iframe.getAttribute('marginheight'); }).join('\n'));
+		</script>
+	</body>
+</html>

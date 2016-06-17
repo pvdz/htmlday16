@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+	<head>
+		<title>marginwidth/height css test</title>
+		<meta charset=“utf-8”>
+		<style>
+			* { padding: 0; margin: 0; border: 0; }
+			html, body { background-color: white; }
+			div { float: left; width: 20px; height: 20px; border: 1px solid black; }
+	
+			iframe { background-color: tomato; margin: 0; padding: 0; border: 1px solid black; width: 100px; height: 100px; }
+			div { float: left; font-family: Arial; size: 20px; width: 150px; height: 150px; margin: 5px; padding: 5px; overflow: auto; border: 1px solid blue; }
+		</style>
+	</head>
+	<body>
+		<script>
+			var values = [ // width
+				undefined, // omit
+				null, // no =
+				'0', '1', '20', 
+				'50%', '20px', '20em',
+				'marginwidth',
+			];
+			values.forEach(function(x){
+				var w = (x === undefined ? '' : 'marginwidth' + (x === null ? '' : '="' + x + '"'));
+				[ // height
+					undefined, // omit
+					null, // no =
+					'0', '1', '20', 
+					'50%', '20px', '20em',
+					'marginwidth',
+				].forEach(function(y){
+					var h = (y === undefined ? '' : 'marginheight' + (y === null ? '' : '="' + y + '"'));
+					var iframe = '<p><iframe src="marginwidthcss.frame.html" '+w+' '+h+'></iframe>';
+					console.log(iframe);
+					document.write('<div><u><b>'+(w[0]+w[6]||'')+w.slice(11)+'<br>'+(h[0]+h[6]||'')+h.slice(12)+'<br></b></u><hr>'+iframe+'</div>');
+				});
+				document.write('<br style="clear:both;">');
+			});
+			var iframes = document.querySelectorAll('iframe');
+			console.log(iframes);
+			console.log([].map.call(iframes, function(iframe, i) { return values[Math.floor(i / values.length)] + ' ' + values[i % values.length] + ' -> ' + iframe.marginWidth + ' ' + iframe.marginHeight + ' -> ' + iframe.getAttribute('marginwidth') + ' ' + iframe.getAttribute('marginheight'); }).join('\n'));
+		</script>
+	</body>
+</html>

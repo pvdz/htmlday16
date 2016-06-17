@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+	<head>
+		<title>src about:blank test</title>
+		<meta charset="utf-8">
+		<style>iframe { width: 200px; height: 50px; }</style>
+	</head>
+	<body>
+		<script>
+			var count = 0;
+			[false, true].forEach(function(write){
+				[
+					'about:blank',
+					'about:',
+					'about:\'<b>quoted</b>\'',
+					'about:"<b>dquoted</b>"',
+					'about:<b>unquoted</b>',
+					'about:crap',
+					'about:config',
+					'about:invalid',
+					'about:legacy-compat',
+					'chrome://about',
+					'404',
+				].forEach(function(src) {
+					var id = 'X'+(++count);
+					document.write('<iframe id='+id+' src="'+src+'"></iframe>');
+					if (write) {
+						document.write('<script>');
+							document.write('console.log(count + \':\', '+id+'.src);');
+							document.write('setTimeout(function(){ '+id+'.contentDocument.body.innerHTML += \'[from-parent-delayed]\'; }, 10);');
+							document.write(id+'.contentDocument.body.innerHTML += \'[from-parent]\';');
+						document.write('<\/script>');
+					}
+				});
+				document.write('<br style="clear:both">');
+			});
+		</script>
+<!--
+		<iframe src="about:blank"></iframe>
+		<iframe id=A src="about:blank"></iframe>
+		<script>
+			console.log('A:', A.src);
+			setTimeout(function(){ A.contentDocument.body.innerHTML += '[from-parent-delayed]'; }, 10);
+			A.contentDocument.body.innerHTML += '[from-parent]'; 
+		</script>
+
+		<iframe src="about:"></iframe>
+		<iframe id=B src="about:"></iframe>
+		<script>
+			console.log('B:', B.src);
+			setTimeout(function(){ B.contentDocument.body.innerHTML += '[from-parent-delayed]'; }, 10);
+			B.contentDocument.body.innerHTML += '[from-parent]'; 
+		</script>
+
+		<iframe src="about:'<b>quoted</b>'"></iframe>
+		<iframe id=C src="about:'<b>quoted</b>'"></iframe>
+		<script>
+			console.log('C:', C.src);
+			setTimeout(function(){ C.contentDocument.body.innerHTML += '[from-parent-delayed]'; }, 10);
+			C.contentDocument.body.innerHTML += '[from-parent]'; 
+		</script>
+
+		<iframe src="about:<b>unquoted</b>"></iframe>
+		<iframe id=D src="about:<b>unquoted</b>"></iframe>
+		<script>
+			console.log('D:', D.src);
+			setTimeout(function(){ D.contentDocument.body.innerHTML += '[from-parent-delayed]'; }, 10);
+			D.contentDocument.body.innerHTML += '[from-parent]'; 
+		</script>
+
+		<iframe src="about:config"></iframe>
+		<iframe id=E src="about:config"></iframe>
+		<script>
+			console.log('E:', E.src);
+			setTimeout(function(){ E.contentDocument.body.innerHTML += '[from-parent-delayed]'; }, 10);
+			E.contentDocument.body.innerHTML += '[from-parent]'; 
+		</script>
+
+		<iframe src="chrome://about"></iframe>
+		<iframe id=F src="chrome://about"></iframe>
+		<script>
+			console.log('F:', F.src);
+			setTimeout(function(){ F.contentDocument.body.innerHTML += '[from-parent-delayed]'; }, 10);
+			F.contentDocument.body.innerHTML += '[from-parent]'; 
+		</script>
+
+		<iframe src="404"></iframe>
+		<iframe id=G src="404"></iframe>
+		<script>
+			console.log('G:', G.src);
+			setTimeout(function(){ G.contentDocument.body.innerHTML += '[from-parent-delayed]'; }, 10);
+			G.contentDocument.body.innerHTML += '[from-parent]'; 
+		</script>
+-->
+	</body>
+</html>

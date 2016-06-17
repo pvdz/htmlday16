@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+	<head>
+		<title>srcdoc test</title>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<iframe src="javascript:'PASS1'" srcdoc="PASS2">simple</iframe>
+
+		<iframe srcdoc="PASS">srcdoc only</iframe>
+
+		<iframe src="404" srcdoc="PASS">bad url</iframe>
+
+		<iframe src="404" srcdoc="<body><script>document.body.innerHTML = 'PASS';</script>">full script</iframe>
+
+		<iframe src="404" srcdoc="<body><script>document.body.innerHTML = 'PASS';">half script</iframe>
+
+		<iframe src="404" srcdoc="<body><script>document.close(); document.write('PASS');</script>">docwrite hell</iframe>
+		<iframe src="404" srcdoc="<body>foo<script>document.write('PASS');</script>">docwrite hell</iframe>
+		<iframe src="404" srcdoc="<body>foo<script>document.close(); document.open(); document.write('PASS');</script>">docwrite hell</iframe>
+
+		<iframe src="404" srcdoc="<body><script>console.log(location.href);</script>">url</iframe>
+	</body>
+</html>

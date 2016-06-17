@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+	<head>
+		<title>name top</title>
+		<meta charset="utf-8">
+		<style>
+			a { background-color: white; color: blue; }
+			a:hover { background-color: white; color: red; }
+		</style>
+	</head>
+	<body>
+		<script>document.body.style.backgroundColor='lime';</script>
+
+		<div style="float:left; margin-right: 10px;">
+			<form method=post action="sandbox.frame.html"><input type=submit value=default></form>
+			<form method=post action="sandbox.frame.html" target=_top><input type=submit value=top></form>
+			<form method=post action="sandbox.frame.html" target=_parent><input type=submit value=parent></form>
+			<form method=post action="sandbox.frame.html" target=_self><input type=submit value=self></form>
+			<form method=post action="sandbox.frame.html" target=_new><input type=submit value=new></form>
+			<form method=post action="sandbox.frame.html" target=_blank><input type=submit value=blank></form>
+		</div>
+		<a href="sandbox.frame.html">default</a><br>
+		<a href="sandbox.frame.html" target="_blank">_blank</a><br>
+		<a href="sandbox.frame.html" target="_top">_top</a><br>
+		<a href="sandbox.frame.html" target="_parent">_parent</a><br>
+		<a href="sandbox.frame.html" target="_self">_self</a><br>
+		<a href="sandbox.frame.html" target="_new">_new</a><br>
+		
+		<hr style="clear:both">
+		<button onclick="console.log('script\n' + location.href), document.body.style.backgroundColor='blue';">log</button><br>
+		<button onclick="alert('script\n' + location.href), document.body.style.backgroundColor='orange';">alert</button><br>
+	</body>
+</html>

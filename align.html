@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+	<head>
+		<title>align</title>
+		<meta charset=“utf-8”>
+		<style>
+			iframe { width: 50px; height: 50px; }
+			p { float: left; font-family: Arial; size: 20px; width: 200px; height: 150px; margin: 5px; overflow: auto; border: 1px solid red; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAKCAIAAAD6sKMdAAAAFklEQVQImWP4//8/EwMDAz7MYFPyHwB1sQS96YvahQAAAABJRU5ErkJggg==); background-repeat: repeat; }
+		</style>
+	</head>
+	<body style="width: 1200px;">
+		<script>
+			[
+				undefined, 
+				'', 
+				'left', 'right', 'justify', 'center', 
+				'baseline', 'sub', 'super', 'text-top', 'text-bottom', 'middle', 'top', 'bottom',
+				'texttop', 'absmiddle', 'absbottom', 
+				'none', 'align', '20', '20px', '20%', 
+			].forEach(function(value){
+				document.write('<p><iframe border=1 '+(value!==undefined?'align="'+value+'"':'')+'></iframe>Lorem ipsum ab dolor sit amet, consectetur adipiscing elit. <u><b>'+(value||(value===undefined?'\u03b5':'align='))+'</b></u> Aliquam viverra diam eget orci accumsan.</p>');
+			});
+		</script>
+	</body>
+</html>

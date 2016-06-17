@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<title>longdesc</title>
+		<meta charset=“utf-8”>
+		<style>
+			iframe { background-color: red; }
+			p { float: left; font-family: Arial; size: 20px; width: 150px; height: 150px; margin: 5px; padding: 5px; overflow: auto; border: 1px solid red; }
+		</style>
+	</head>
+	<body>
+		<script>
+			[ // height
+				undefined, // omit
+				null, // no =
+				'',
+				'foo.txt',
+				'http://localhost',
+				'https://localhost',
+			].forEach(function(url){
+				var longdesc = (url === undefined ? '' : 'longdesc' + (url === null ? '' : '="' + url + '"'));
+				var iframe = '<iframe src="404?'+Math.random()+'" '+longdesc+'></iframe>';
+				console.log(iframe);
+				document.write('<p><u><b>'+longdesc+'<br></b></u>'+iframe+'</p>');
+			});
+			document.write('<br style="clear:both;">');
+			var iframes = document.querySelectorAll('iframe');
+			console.log(iframes);
+			console.log([].map.call(iframes, function(iframe) { return [iframe.longDesc, iframe.getAttribute('longdesc')]; }));
+		</script>
+	</body>
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+	<head>
+		<title>name test</title>
+		<meta charset="utf-8">
+		<style>
+			html, body { background-color: white; }
+	
+			iframe { background-color: tomato; margin: 0; padding: 0; border: 1px solid black; width: 100px; height: 100px; }
+			div { float: left; font-family: Arial; size: 20px; height: 170px; margin: 5px; padding: 5px; overflow: auto; border: 1px solid blue; }
+		</style>
+	</head>
+	<body>
+		<form method=post action=name.frame.html target=undefined><select></select> <input type=submit></form>
+		<script>
+			var values = [ // width
+				undefined, // omit
+				null, // no =
+				'name', 'foo', '',
+				'_blank', '_self', '_parent', '_top', '_new', '_nope',
+				'123', '😱',
+			];
+			values.forEach(function(name){
+				var n = (name === undefined ? '' : 'name' + (name === null ? '' : '="' + name + '"'));
+				var iframe = '<p><iframe '+n+'></iframe>';
+				console.log(iframe);
+				document.write('<div><u><b>'+n+'<br></b></u><hr>'+iframe+'</div>');
+				document.querySelector('select').appendChild(document.createElement('option')).innerHTML = String(name);
+			});
+			document.write('<br style="clear:both;">');
+			values.forEach(function(name){
+				var n = (name === undefined ? '' : 'name' + (name === null ? '' : '="' + name + '"'));
+				var iframe = '<p><iframe '+n+'></iframe>';
+				document.write('<div><u><b>'+n+'<br></b></u><hr>'+iframe+'</div>');
+			});
+			var iframes = document.querySelectorAll('iframe');
+			console.log(iframes);
+			console.log([].map.call(iframes, function(iframe, i) { return values[i] + ' -> ' + iframe.name + ' -> ' + iframe.getAttribute('name'); }).join('\n'));
+			document.querySelector('select').onchange = function(){
+				document.querySelector('form').setAttribute('target', document.querySelector('select').children[document.querySelector('select').selectedIndex].innerHTML);
+			};
+		</script>
+	</body>
+</html>
